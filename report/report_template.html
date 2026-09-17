@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Project Report - Banking and Transaction Simulation System</title>
+<style>
+    @page {
+        size: A4;
+        margin: 20mm 18mm 20mm 18mm;
+        @bottom-right {
+            content: counter(page);
+        }
+    }
+    body {
+        font-family: 'Segoe UI', Arial, sans-serif;
+        color: #1a202c;
+        line-height: 1.6;
+        font-size: 11pt;
+        background-color: #ffffff;
+        margin: 0;
+        padding: 0;
+    }
+    .page-break {
+        page-break-before: always;
+        clear: both;
+    }
+    .no-break {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+
+    /* Cover Page */
+    .cover-page {
+        height: 90vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        text-align: center;
+        border: 4px double #1a365d;
+        padding: 40px 30px;
+        box-sizing: border-box;
+    }
+    .cover-header h1 {
+        font-size: 26pt;
+        color: #1a365d;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+    }
+    .cover-header h2 {
+        font-size: 14pt;
+        font-weight: 400;
+        color: #4a5568;
+        margin-top: 0;
+    }
+    .cover-badge {
+        display: inline-block;
+        background: #ebf8ff;
+        color: #2b6cb0;
+        padding: 6px 16px;
+        border-radius: 20px;
+        font-weight: 600;
+        font-size: 10pt;
+        border: 1px solid #bee3f8;
+        margin: 15px 0;
+    }
+    .cover-desc {
+        font-size: 12pt;
+        color: #4a5568;
+        margin: 25px 0;
+        line-height: 1.8;
+    }
+    .meta-box-container {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 30px;
+        text-align: left;
+        border-top: 1px solid #cbd5e0;
+        padding-top: 25px;
+    }
+    .meta-column {
+        width: 48%;
+    }
+    .meta-column h3 {
+        font-size: 11pt;
+        color: #2b6cb0;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+        border-bottom: 2px solid #2b6cb0;
+        padding-bottom: 4px;
+    }
+    .meta-column p {
+        margin: 4px 0;
+        font-size: 10.5pt;
+    }
+    .cover-footer {
+        font-size: 11pt;
+        color: #2d3748;
+        font-weight: 600;
+        border-top: 1px solid #e2e8f0;
+        padding-top: 15px;
+    }
+
+    /* Headings */
+    h1.section-title {
+        color: #1a365d;
+        font-size: 18pt;
+        border-bottom: 2px solid #2b6cb0;
+        padding-bottom: 6px;
+        margin-top: 20px;
+        margin-bottom: 14px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    h2.sub-title {
+        color: #2b6cb0;
+        font-size: 13pt;
+        margin-top: 18px;
+        margin-bottom: 8px;
+    }
+    h3 {
+        color: #2d3748;
+        font-size: 11.5pt;
+        margin-top: 12px;
+        margin-bottom: 6px;
+    }
+
+    /* Content styling */
+    p, li {
+        text-align: justify;
+    }
+    ul, ol {
+        margin-top: 4px;
+        margin-bottom: 12px;
+        padding-left: 24px;
+    }
+    li {
+        margin-bottom: 4px;
+    }
+
+    /* Tables */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 14px 0;
+        font-size: 10pt;
+    }
+    th, td {
+        border: 1px solid #cbd5e0;
+        padding: 8px 10px;
+        text-align: left;
+    }
+    th {
+        background-color: #edf2f7;
+        color: #1a365d;
+        font-weight: 600;
+    }
+    tr:nth-child(even) td {
+        background-color: #f7fafc;
+    }
+    .badge-pass {
+        background-color: #c6f6d5;
+        color: #22543d;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-weight: 700;
+        font-size: 8.5pt;
+    }
+
+    /* Code & Terminal blocks */
+    pre, code {
+        font-family: 'Consolas', 'Courier New', monospace;
+    }
+    code {
+        background-color: #edf2f7;
+        padding: 2px 5px;
+        border-radius: 4px;
+        font-size: 9.5pt;
+        color: #b83280;
+    }
+    pre {
+        background-color: #1a202c;
+        color: #f7fafc;
+        padding: 12px;
+        border-radius: 6px;
+        font-size: 9pt;
+        overflow-x: auto;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        border-left: 4px solid #3182ce;
+        margin: 12px 0;
+    }
+
+    /* Callout Boxes */
+    .callout {
+        border-left: 4px solid #3182ce;
+        background-color: #ebf8ff;
+        padding: 10px 14px;
+        border-radius: 0 6px 6px 0;
+        margin: 12px 0;
+        font-size: 10pt;
+    }
+    .callout strong {
+        color: #2b6cb0;
+    }
+
+    .diagram-box {
+        background-color: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 6px;
+        padding: 15px;
+        margin: 14px 0;
+        font-family: 'Consolas', monospace;
+        font-size: 8.5pt;
+        line-height: 1.35;
+        white-space: pre;
+    }
+</style>
+</head>
+<body>
+
+<!-- ======================================================================= -->
+<!-- COVER PAGE                                                              -->
+<!-- ======================================================================= -->
+<div class="cover-page">
+    <div class="cover-header">
+        <h1>Banking & Transaction Simulation System</h1>
+        <h2>Object-Oriented Architecture & Financial Safety Protocol</h2>
+        <div class="cover-badge">Core Java Project & Academic Report</div>
+    </div>
+
+    <div class="cover-desc">
+        A Project Report submitted in partial fulfillment of the requirements<br>
+        for the award of the Degree of<br>
+        <strong>Bachelor of Technology / Science in Computer Science & Engineering</strong>
+    </div>
+
+    <div class="meta-box-container">
+        <div class="meta-column">
+            <h3>Submitted By:</h3>
+            <p><strong>Name:</strong> [Student Name / Sagee]</p>
+            <p><strong>Roll No / ID:</strong> [Roll Number / 2026-CS-042]</p>
+            <p><strong>Department:</strong> Department of Computer Science</p>
+            <p><strong>Academic Year:</strong> 2025 - 2026</p>
+        </div>
+        <div class="meta-column">
+            <h3>Under The Guidance Of:</h3>
+            <p><strong>Guide:</strong> [Faculty Advisor / Professor Name]</p>
+            <p><strong>Designation:</strong> Assistant Professor</p>
+            <p><strong>Institution:</strong> [College / University Name]</p>
+            <p><strong>Course:</strong> Advanced Object-Oriented Programming with Java</p>
+        </div>
+    </div>
+
+    <div class="cover-footer">
+        DEPARTMENT OF COMPUTER SCIENCE & ENGINEERING<br>
+        [COLLEGE / UNIVERSITY NAME] &bull; ACADEMIC YEAR 2025-2026
+    </div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ======================================================================= -->
+<!-- CERTIFICATE OF ORIGINALITY & ACKNOWLEDGEMENT                            -->
+<!-- ======================================================================= -->
+<h1 class="section-title">Certificate of Originality</h1>
+<p>
+This is to certify that the project entitled <strong>"Banking and Transaction Simulation System"</strong> is a bona fide work carried out by <strong>[Student Name]</strong> under my supervision and guidance in partial fulfillment of the requirements for the degree in Computer Science and Engineering.
+</p>
+<p>
+The results embodied in this report have not been submitted to any other University or Institute for the award of any degree or diploma.
+</p>
+
+<br><br>
+<table style="border: none; margin-top: 40px;">
+    <tr style="border: none; background: transparent;">
+        <td style="border: none; width: 50%;">
+            ___________________________<br>
+            <strong>Internal Faculty Guide</strong><br>
+            Department of Computer Science
+        </td>
+        <td style="border: none; width: 50%; text-align: right;">
+            ___________________________<br>
+            <strong>Head of the Department (HOD)</strong><br>
+            Department of Computer Science
+        </td>
+    </tr>
+</table>
+
+<h1 class="section-title" style="margin-top: 40px;">Acknowledgement</h1>
+<p>
+I express my deepest gratitude to our project guide for their invaluable direction, constructive feedback, and encouragement throughout the software development lifecycle of this project.
+</p>
+<p>
+I am also deeply grateful to the Department of Computer Science and Engineering for providing the computational resources, environment, and educational curriculum that fostered the creation of this banking system simulation.
+</p>
+
+<div class="page-break"></div>
+
+<!-- ======================================================================= -->
+<!-- TABLE OF CONTENTS                                                       -->
+<!-- ======================================================================= -->
+<h1 class="section-title">Table of Contents</h1>
+<table>
+    <thead>
+        <tr>
+            <th style="width: 15%;">Chapter</th>
+            <th>Title</th>
+            <th style="width: 15%; text-align: center;">Page No.</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><strong>1</strong></td>
+            <td><strong>Introduction & Problem Statement</strong></td>
+            <td style="text-align: center;">4</td>
+        </tr>
+        <tr>
+            <td><strong>2</strong></td>
+            <td><strong>System Requirements & Technology Stack</strong></td>
+            <td style="text-align: center;">5</td>
+        </tr>
+        <tr>
+            <td><strong>3</strong></td>
+            <td><strong>System Architecture & Object-Oriented Design</strong></td>
+            <td style="text-align: center;">6</td>
+        </tr>
+        <tr>
+            <td><strong>4</strong></td>
+            <td><strong>Implementation Details & Core Algorithms</strong></td>
+            <td style="text-align: center;">8</td>
+        </tr>
+        <tr>
+            <td><strong>5</strong></td>
+            <td><strong>Testing, Verification & Results Matrix</strong></td>
+            <td style="text-align: center;">10</td>
+        </tr>
+        <tr>
+            <td><strong>6</strong></td>
+            <td><strong>User Interface & Execution Transcripts</strong></td>
+            <td style="text-align: center;">12</td>
+        </tr>
+        <tr>
+            <td><strong>7</strong></td>
+            <td><strong>Conclusion & Future Enhancements</strong></td>
+            <td style="text-align: center;">14</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="page-break"></div>
+
+<!-- ======================================================================= -->
+<!-- CHAPTER 1                                                               -->
+<!-- ======================================================================= -->
+<h1 class="section-title">Chapter 1: Introduction & Problem Statement</h1>
+
+<h2 class="sub-title">1.1 Background</h2>
+<p>
+In the digital economy, modern banking infrastructures rely upon mission-critical software systems designed for stringent transactional integrity, high availability, and deterministic data preservation. At their core, financial institutions demand strict adherence to ACID principles (Atomicity, Consistency, Isolation, and Durability) to ensure that customer funds are never lost, duplicated, or misallocated.
+</p>
+
+<h2 class="sub-title">1.2 Problem Statement</h2>
+<p>
+Academic software projects frequently simplify banking applications into rudimentary procedural scripts that store balances in primitive variables without state persistence, fail to enforce type-specific financial rules (such as minimum balances or overdraft facilities), and ignore transaction atomicity during inter-account transfers. A single failed step during a transfer can result in funds vanishing or being credited twice.
+</p>
+
+<h2 class="sub-title">1.3 Project Objectives</h2>
+<p>The primary objectives of the <strong>Banking & Transaction Simulation System</strong> are:</p>
+<ul>
+    <li><strong>Model Real-World Banking Products:</strong> Establish distinct account tiers (Savings Accounts with interest accrual and minimum balances vs. Checking Accounts with overdraft facilities and maintenance fees).</li>
+    <li><strong>Ensure Transactional Atomicity:</strong> Guarantee that two-party fund transfers either succeed fully or undergo an immediate rollback if any validation or target constraint fails.</li>
+    <li><strong>Cryptographic Security:</strong> Implement SHA-256 salted hashing for user authentication PINs, preventing plaintext password vulnerabilities.</li>
+    <li><strong>Zero-Dependency Durability:</strong> Store all customer accounts and transaction ledgers on disk via structured CSV repositories, eliminating runtime setup bottlenecks.</li>
+    <li><strong>Interactive Dual-Portal Experience:</strong> Provide customer operations (deposits, withdrawals, transfers, account statements) and manager administration (total bank liquidity, interest accrual, account freezing).</li>
+</ul>
+
+<div class="page-break"></div>
+
+<!-- ======================================================================= -->
+<!-- CHAPTER 2                                                               -->
+<!-- ======================================================================= -->
+<h1 class="section-title">Chapter 2: System Requirements & Tech Stack</h1>
+
+<h2 class="sub-title">2.1 Hardware Requirements</h2>
+<table>
+    <tr><th>Component</th><th>Minimum Specification</th><th>Recommended Specification</th></tr>
+    <tr><td>Processor</td><td>Intel Core i3 / AMD Ryzen 3 or equivalent</td><td>Intel Core i5 / AMD Ryzen 5 or higher</td></tr>
+    <tr><td>RAM</td><td>2 GB</td><td>4 GB or higher</td></tr>
+    <tr><td>Storage</td><td>100 MB free disk space</td><td>500 MB free disk space</td></tr>
+    <tr><td>Display</td><td>Standard console terminal (80x25 characters)</td><td>High-definition terminal window</td></tr>
+</table>
+
+<h2 class="sub-title">2.2 Software Requirements</h2>
+<table>
+    <tr><th>Component</th><th>Details</th></tr>
+    <tr><td>Operating System</td><td>Windows 10 / 11, Linux (Ubuntu/Debian/Fedora), or macOS</td></tr>
+    <tr><td>Programming Language</td><td>Java Standard Edition (Java SE)</td></tr>
+    <tr><td>JDK Version</td><td>JDK 17 LTS, JDK 21 LTS, or JDK 25 LTS</td></tr>
+    <tr><td>Build / Tooling</td><td>Standard <code>javac</code> compiler & <code>java</code> runtime (Zero external JARs)</td></tr>
+    <tr><td>Persistence Format</td><td>CSV (Comma Separated Values) Data Ledgers</td></tr>
+</table>
+
+<h2 class="sub-title">2.3 Rationale for Technology Selection</h2>
+<div class="callout">
+    <strong>Why Pure Core Java?</strong><br>
+    Java is an industry-standard language renowned for platform independence ("Write Once, Run Anywhere"), strong typing, automatic memory management, and first-class concurrency features. By deliberately avoiding third-party dependency managers (Maven/Gradle) or external database servers, the project can be effortlessly compiled and evaluated on any professor's workstation using standard JDK CLI commands without dependency version conflicts.
+</div>
+
+<div class="page-break"></div>
+
+<!-- ======================================================================= -->
+<!-- CHAPTER 3                                                               -->
+<!-- ======================================================================= -->
+<h1 class="section-title">Chapter 3: System Architecture & OOP Design</h1>
+
+<h2 class="sub-title">3.1 Architectural Overview</h2>
+<p>
+The system follows a clean, decoupled 4-tier architectural pattern:
+</p>
+
+<div class="diagram-box">
++-----------------------------------------------------------------------+
+|                       PRESENTATION LAYER (CLI)                        |
+|   com.bank.Main -> Input validation, ANSI menus, interactive workflows|
++-----------------------------------+-----------------------------------+
+                                    |
+                                    v
++-----------------------------------------------------------------------+
+|                         SERVICE / BUSINESS LAYER                      |
+|   com.bank.service.BankService   -> Atomic transfers, interest logic   |
+|   com.bank.service.SecurityUtil  -> SHA-256 salted PIN hashing        |
++-----------------------------------+-----------------------------------+
+                                    |
+                                    v
++-----------------------------------------------------------------------+
+|                         DATA ACCESS LAYER                             |
+|   com.bank.repository.AccountRepository (Interface)                   |
+|   com.bank.repository.FileAccountRepository (CSV Data Persistence)   |
++-----------------------------------+-----------------------------------+
+                                    |
+                                    v
++-----------------------------------------------------------------------+
+|                         DOMAIN MODEL LAYER                            |
+|   Account (Abstract Base Class)                                       |
+|     ├── SavingsAccount   (Min balance, 4.5% interest accrual)         |
+|     └── CheckingAccount  (Overdraft limit $500, overdraft fee $15)    |
+|   Customer, Transaction, TransactionType                              |
++-----------------------------------------------------------------------+
+</div>
+
+<h2 class="sub-title">3.2 Application of OOP Principles</h2>
+<ul>
+    <li><strong>Abstraction:</strong> The <code>Account</code> class defines the abstract contract <code>withdraw()</code> and <code>getAccountType()</code>, hiding specific overdraft calculations or minimum balance constraints from callers.</li>
+    <li><strong>Encapsulation:</strong> Sensitive state variables such as <code>balance</code> and <code>pinHash</code> are marked protected/private and manipulated only via synchronized mutator methods with validation guards.</li>
+    <li><strong>Inheritance:</strong> <code>SavingsAccount</code> and <code>CheckingAccount</code> inherit common attributes (account number, holder customer, balance, transaction history) while customizing financial behavior.</li>
+    <li><strong>Polymorphism:</strong> The <code>BankService</code> manages polymorphic <code>Account</code> collections seamlessly without needing to know concrete subclass types during deposits, transfers, or balance queries.</li>
+</ul>
+
+<div class="page-break"></div>
+
+<!-- ======================================================================= -->
+<!-- CHAPTER 4                                                               -->
+<!-- ======================================================================= -->
+<h1 class="section-title">Chapter 4: Implementation Details & Core Algorithms</h1>
+
+<h2 class="sub-title">4.1 Atomic Inter-Account Transfer Algorithm</h2>
+<p>
+To prevent race conditions and partial failures, inter-account transfers are implemented with strict rollback capability:
+</p>
+
+<pre>
+public synchronized void transfer(String fromAccNum, String pin, String toAccNum,
+                                 double amount, String notes) throws BankingException {
+    // 1. Validation guards
+    if (fromAccNum.equalsIgnoreCase(toAccNum))
+        throw new BankingException("Cannot transfer to the same account.");
+
+    Account sender = authenticate(fromAccNum, pin);
+    Account recipient = getAccount(toAccNum);
+
+    if (!recipient.isActive())
+        throw new BankingException("Recipient account is frozen.");
+
+    double senderSnapshot = sender.getBalance();
+
+    // 2. Atomic Transaction Execution
+    try {
+        sender.withdraw(amount, "Transfer to " + recipient.getAccountNumber());
+        recipient.deposit(amount, "Transfer from " + sender.getAccountNumber());
+
+        repository.save(sender);
+        repository.save(recipient);
+    } catch (Exception e) {
+        // 3. Rollback mechanics
+        sender.restoreBalance(senderSnapshot);
+        throw new BankingException("Transfer failed and was rolled back: " + e.getMessage(), e);
+    }
+}
+</pre>
+
+<h2 class="sub-title">4.2 Cryptographic PIN Hashing (SHA-256)</h2>
+<p>
+PINs are salted and hashed using standard Java Cryptography Architecture (<code>MessageDigest</code>):
+</p>
+<pre>
+public static String hashPin(String pin) {
+    MessageDigest digest = MessageDigest.getInstance("SHA-256");
+    String salted = "BANK_SALT_V1_" + pin;
+    byte[] hash = digest.digest(salted.getBytes(StandardCharsets.UTF_8));
+    // Converted to hexadecimal representation
+    ...
+}
+</pre>
+
+<h2 class="sub-title">4.3 Overdraft & Minimum Balance Enforcement</h2>
+<ul>
+    <li><strong>Savings Account:</strong> Requires <code>balance - amount >= minimumBalance ($100.00)</code>. If violated, an <code>InsufficientFundsException</code> is thrown.</li>
+    <li><strong>Checking Account:</strong> Permits <code>balance - amount >= -overdraftLimit ($500.00)</code>. When crossing into negative balance, an automated $15 overdraft protection fee is assessed.</li>
+</ul>
+
+<div class="page-break"></div>
+
+<!-- ======================================================================= -->
+<!-- CHAPTER 5                                                               -->
+<!-- ======================================================================= -->
+<h1 class="section-title">Chapter 5: Testing, Verification & Results Matrix</h1>
+
+<h2 class="sub-title">5.1 Test Execution Matrix</h2>
+<p>
+The project includes a standalone automated test suite (<code>TestRunner.java</code>) that validates all financial boundaries and edge cases:
+</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Test Case ID</th>
+            <th>Scenario Description</th>
+            <th>Input Conditions</th>
+            <th>Expected Result</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>TC-01</td>
+            <td>Savings Account Creation</td>
+            <td>Deposit $250.00, PIN 1234</td>
+            <td>Account opened with $250.00 balance</td>
+            <td><span class="badge-pass">PASSED</span></td>
+        </tr>
+        <tr>
+            <td>TC-02</td>
+            <td>Checking Account Creation</td>
+            <td>Deposit $500.00, PIN 5678</td>
+            <td>Account opened with $500.00 balance</td>
+            <td><span class="badge-pass">PASSED</span></td>
+        </tr>
+        <tr>
+            <td>TC-03</td>
+            <td>Deposit Transaction</td>
+            <td>Deposit $150.00 into $200.00 balance</td>
+            <td>New balance equals $350.00</td>
+            <td><span class="badge-pass">PASSED</span></td>
+        </tr>
+        <tr>
+            <td>TC-04</td>
+            <td>Savings Minimum Balance Violation</td>
+            <td>Balance $150.00, Attempt withdraw $60.00</td>
+            <td><code>InsufficientFundsException</code> thrown</td>
+            <td><span class="badge-pass">PASSED</span></td>
+        </tr>
+        <tr>
+            <td>TC-05</td>
+            <td>Checking Overdraft with Fee</td>
+            <td>Balance $100.00, Withdraw $150.00</td>
+            <td>Balance = -$65.00 ($50 overdraft + $15 fee)</td>
+            <td><span class="badge-pass">PASSED</span></td>
+        </tr>
+        <tr>
+            <td>TC-06</td>
+            <td>Overdraft Limit Exceeded</td>
+            <td>Balance $50.00, Attempt withdraw $600.00</td>
+            <td><code>OverdraftExceededException</code> thrown</td>
+            <td><span class="badge-pass">PASSED</span></td>
+        </tr>
+        <tr>
+            <td>TC-07</td>
+            <td>Atomic Inter-Account Transfer</td>
+            <td>$1000.00 -> $200.00 (Transfer $400.00)</td>
+            <td>Sender: $600.00, Receiver: $600.00</td>
+            <td><span class="badge-pass">PASSED</span></td>
+        </tr>
+        <tr>
+            <td>TC-08</td>
+            <td>Transfer Rollback on Invalid Target</td>
+            <td>Transfer to non-existent account number</td>
+            <td>Sender balance unaltered at $500.00</td>
+            <td><span class="badge-pass">PASSED</span></td>
+        </tr>
+        <tr>
+            <td>TC-09</td>
+            <td>PIN Authentication Rejection</td>
+            <td>Authenticate with incorrect PIN</td>
+            <td><code>InvalidPinException</code> thrown</td>
+            <td><span class="badge-pass">PASSED</span></td>
+        </tr>
+        <tr>
+            <td>TC-10</td>
+            <td>Monthly Interest Accrual</td>
+            <td>$10,000 balance at 4.5% annual rate</td>
+            <td>Monthly interest credited: $37.50</td>
+            <td><span class="badge-pass">PASSED</span></td>
+        </tr>
+        <tr>
+            <td>TC-11</td>
+            <td>Data Persistence & Reload</td>
+            <td>Restart repository from disk files</td>
+            <td>100% balance & transaction fidelity</td>
+            <td><span class="badge-pass">PASSED</span></td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="callout">
+    <strong>Verification Summary:</strong> 11 out of 11 test scenarios passed with 100% success rate under automated regression execution.
+</div>
+
+<div class="page-break"></div>
+
+<!-- ======================================================================= -->
+<!-- CHAPTER 6                                                               -->
+<!-- ======================================================================= -->
+<h1 class="section-title">Chapter 6: User Interface & Execution Transcripts</h1>
+
+<h2 class="sub-title">6.1 Main Menu & Customer Portal</h2>
+<p>The console interface offers an intuitive, numbered navigation system with built-in input sanitation:</p>
+
+<pre>
+================================================================================
+               BANKING & TRANSACTION SIMULATION SYSTEM (JAVA)                  
+                  Object-Oriented Academic Project Suite                        
+================================================================================
+
+============================= MAIN MENU =============================
+ [1] Open New Account (Savings / Checking)
+ [2] Customer Login & Transactions (Deposit, Withdraw, Transfer, Statement)
+ [3] Bank Manager / Admin Portal (Auditing, Reserves, Interest)
+ [4] Seed Quick Demo Accounts (For Viva / Demo Presentation)
+ [5] Exit System
+=====================================================================
+</pre>
+
+<h2 class="sub-title">6.2 Account Statement & Audit Trail</h2>
+<p>Each transaction produces an immutable ledger entry with timestamp and balance-after snapshot:</p>
+
+<pre>
+======================= TRANSACTION STATEMENT =======================
+Account: ACC-1001 | Holder: Alice Johnson
+---------------------------------------------------------------------
+Timestamp           | Txn ID       | Type         |     Amount |    Balance | Description
+---------------------------------------------------------------------------------------------------
+2026-09-17 16:42:00 | TXN-9F2B81A0 | Deposit      | $  1500.00 | $  1500.00 | Initial Account Opening Deposit
+2026-09-17 16:42:05 | TXN-3A81C0DF | Deposit      | $   500.00 | $  2000.00 | Salary Bonus Credit
+2026-09-17 16:42:10 | TXN-7E59D112 | Transfer Out | $   300.00 | $  1700.00 | Transfer to ACC-1002 (Dinner split)
+=====================================================================
+</pre>
+
+<h2 class="sub-title">6.3 Bank Manager Administrative Dashboard</h2>
+<p>Bank managers can audit total bank reserves and apply interest distribution in a single command:</p>
+
+<pre>
+------------------- BANK LIQUIDITY REPORT -------------------
+Total Accounts Registered : 2 (Active: 2, Frozen: 0)
+Total Net Bank Reserves   : $2,800.00
+-------------------------------------------------------------
+</pre>
+
+<div class="page-break"></div>
+
+<!-- ======================================================================= -->
+<!-- CHAPTER 7                                                               -->
+<!-- ======================================================================= -->
+<h1 class="section-title">Chapter 7: Conclusion & Future Enhancements</h1>
+
+<h2 class="sub-title">7.1 Project Conclusion</h2>
+<p>
+The <strong>Banking & Transaction Simulation System</strong> successfully achieves all of its initial design goals. By modeling real-world banking products through Object-Oriented principles, the software demonstrates clear architectural separation between domain entities, business logic, persistence services, and user interfaces.
+</p>
+<p>
+Key achievements include:
+</p>
+<ul>
+    <li>Implementation of polymorphic account types (Savings and Checking) with distinct financial rules.</li>
+    <li>Fail-safe, atomic inter-account transfer execution with automatic rollback upon error.</li>
+    <li>Zero external dependencies, ensuring compatibility with standard Java environments.</li>
+    <li>Complete audit trails with persistent CSV storage.</li>
+    <li>100% automated test coverage across all critical edge cases and financial boundary conditions.</li>
+</ul>
+
+<h2 class="sub-title">7.2 Future Scope & Enhancements</h2>
+<p>
+While the current simulation meets all academic requirements, several viable avenues for future expansion include:
+</p>
+<ol>
+    <li><strong>Graphical User Interface (GUI):</strong> Developing a JavaFX or Swing desktop client featuring dynamic charts for expense and savings growth.</li>
+    <li><strong>Relational Database Integration:</strong> Transitioning the persistence layer from CSV files to a JDBC-backed SQLite or PostgreSQL database with schema migrations.</li>
+    <li><strong>RESTful API Architecture:</strong> Refactoring the service layer into a Spring Boot microservice to expose JSON endpoints for mobile and web clients.</li>
+    <li><strong>Multi-Factor Authentication (MFA):</strong> Incorporating time-based one-time password (TOTP) generators for high-value transactions.</li>
+</ol>
+
+<br><br>
+<hr style="border: 1px solid #cbd5e0; margin-top: 30px;">
+<div style="text-align: center; color: #718096; font-size: 9.5pt;">
+    &mdash; END OF REPORT &mdash;<br>
+    Banking & Transaction Simulation System &bull; Java SE Academic Suite
+</div>
+
+</body>
+</html>

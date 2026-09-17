@@ -1,0 +1,17 @@
+# Compiled Java class files
+*.class
+bin/
+out/
+
+# Temporary test directories
+data_test/
+
+# IDE / Editor configuration
+.idea/
+.vscode/
+*.iml
+
+# OS generated files
+Thumbs.db
+Desktop.ini
+.DS_Store
